@@ -1,17 +1,40 @@
-def is_palindrome(s: str) -> bool:
-    stack = []
+#include <stdio.h>
+#include <string.h>
 
-    for char in s:
-        stack.append(char)
+int is_palindrome(char str[]) {
+  int len = strlen(str);
 
-    for char in s:
-        if char != stack.pop():
-            return False
+  for (int i = 0, j = len - 1; i < j; i++, j--) {
+    while (!isalnum(str[i])) {
+      i++;
+    }
+    while (!isalnum(str[j])) {
+      j--;
+    }
+    char ch1 = tolower(str[i]);
+    char ch2 = tolower(str[j]);
 
-    return True
-  
-string = input("Enter a string: ")
-if is_palindrome(string):
-    print(f"The string '{string}' is a palindrome.")
-else:
-    print(f"The string '{string}' is not a palindrome.")
+    if (ch1 != ch2) {
+      return 0;
+    }
+  }
+
+  return 1;
+}
+
+int main() {
+  char str[100];
+
+  printf("Enter a string: ");
+  fgets(str, 100, stdin);
+
+  str[strcspn(str, "\n")] = '\0';
+
+  if (is_palindrome(str)) {
+    printf("%s is a palindrome.\n", str);
+  } else {
+    printf("%s is not a palindrome.\n", str);
+  }
+
+  return 0;
+}
